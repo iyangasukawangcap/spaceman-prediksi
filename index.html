@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediksi Spaceman</title>
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #00ffcc;
+    }
+    #time, #prediction {
+      font-size: 2rem;
+      margin: 20px 0;
+    }
+    .history {
+      margin-top: 40px;
+      max-width: 300px;
+      width: 100%;
+      text-align: center;
+    }
+    .history h3 {
+      margin-bottom: 10px;
+    }
+    .history-list {
+      list-style: none;
+      padding: 0;
+    }
+    .history-list li {
+      background: #1a1a1a;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Prediksi Spaceman</h1>
+  <div id="time">Waktu: --:--:--</div>
+  <div id="prediction">Prediksi: -</div>
+  <div class="history">
+    <h3>Riwayat Prediksi</h3>
+    <ul id="historyList" class="history-list"></ul>
+  </div>
+
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString();
+      document.getElementById('time').textContent = `Waktu: ${timeStr}`;
+    }
+
+    function generatePrediction() {
+      const randomMultiplier = (Math.random() * 10 + 1).toFixed(2);
+      const predictionText = `Prediksi: ${randomMultiplier}x`;
+      document.getElementById('prediction').textContent = predictionText;
+
+      // Tambahkan ke history
+      const historyList = document.getElementById('historyList');
+      const li = document.createElement('li');
+      li.textContent = `${new Date().toLocaleTimeString()} - ${randomMultiplier}x`;
+      historyList.prepend(li);
+
+      // Batasi ke 10 history terakhir
+      if (historyList.children.length > 10) {
+        historyList.removeChild(historyList.lastChild);
+      }
+    }
+
+    setInterval(updateTime, 1000);
+    setInterval(generatePrediction, 10000); // prediksi setiap 10 detik
+
+    updateTime();
+    generatePrediction();
+  </script>
+</body>
+</html>
